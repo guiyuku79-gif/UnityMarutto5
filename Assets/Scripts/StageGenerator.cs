@@ -16,7 +16,7 @@ public class StageGenerator : MonoBehaviour
 
     void Start()
     {
-        _currentchipIndex = StartChipIndex -1;
+        _currentchipIndex = StartChipIndex - 1;
         UpdateStage(PreInstantiate);
     }
 
@@ -24,7 +24,7 @@ public class StageGenerator : MonoBehaviour
     {
         int charaPositionIndex = (int)(Chractor.position.z / StageChipSize);
 
-        if(charaPositionIndex + PreInstantiate > _currentchipIndex)
+        if (charaPositionIndex + PreInstantiate > _currentchipIndex)
         {
             UpdateStage(charaPositionIndex + PreInstantiate);
         }
@@ -32,16 +32,16 @@ public class StageGenerator : MonoBehaviour
 
     void UpdateStage(int toChipIndex)
     {
-        if(toChipIndex <= _currentchipIndex) return;
+        if (toChipIndex <= _currentchipIndex) return;
 
-        for( int i = _currentchipIndex + 1; i <= toChipIndex; i++)
+        for (int i = _currentchipIndex + 1; i <= toChipIndex; i++)
         {
             GameObject stageObject = GenerateStage(i);
 
             GeneratedStageList.Add(stageObject);
         }
 
-        while(GeneratedStageList.Count > PreInstantiate + 2)
+        while (GeneratedStageList.Count > PreInstantiate + 2)
         {
             DestroyOldestStage();
         }
@@ -49,10 +49,10 @@ public class StageGenerator : MonoBehaviour
     }
     GameObject GenerateStage(int chipIndex)
     {
-        int nextStageChip = Random.Range(0,StageChips.Length);
+        int nextStageChip = Random.Range(0, StageChips.Length);
         GameObject stageObject = (GameObject)Instantiate(
             StageChips[nextStageChip],
-            new Vector3(0,0,chipIndex*StageChipSize),
+            new Vector3(0, 0, chipIndex * StageChipSize),
             Quaternion.identity
         );
         return stageObject;
